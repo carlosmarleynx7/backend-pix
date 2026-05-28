@@ -12,8 +12,9 @@ export default async function handler(req, res) {
       transaction_amount: 5,
       description: "Bolão Copa",
       payment_method_id: "pix",
+
       payer: {
-        email: "teste@teste.com",
+        email: "test_user_4422631723884201271@testuser.com",
       },
     };
 
