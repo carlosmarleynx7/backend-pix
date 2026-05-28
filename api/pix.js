@@ -11,7 +11,7 @@ export default async function handler(req, res) {
       description: "Bolão Copa",
       payment_method_id: "pix",
       payer: {
-        email: "test_user_123456@testuser.com",
+        email: "testuser4422631723884201271@testuser.com",
       },
     };
 
@@ -28,7 +28,7 @@ export default async function handler(req, res) {
 
     res.status(500).json({
       error: error.message,
-      details: error.cause || null,
+      details: error.response?.body,
     });
   }
 }
