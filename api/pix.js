@@ -1,35 +1,34 @@
-import { MercadoPagoConfig, Payment } from "mercadopago";
+import mercadopago from "mercadopago";
 
-const client = new MercadoPagoConfig({
-  accessToken: process.env.MERCADO_PAGO_TOKEN,
+mercadopago.configure({
+  access_token: process.env.MERCADO_PAGO_TOKEN,
 });
-
-const payment = new Payment(client);
 
 export default async function handler(req, res) {
   try {
-    const body = {
+    const payment_data = {
       transaction_amount: 5,
       description: "Bolão Copa",
       payment_method_id: "pix",
       payer: {
-        email: "teste@teste.com",
+        email: "test_user_123456@testuser.com",
       },
     };
 
-    const result = await payment.create({ body });
+    const response = await mercadopago.payment.create(payment_data);
 
     res.status(200).json({
       qr_code:
-        result.point_of_interaction.transaction_data.qr_code,
+        response.body.point_of_interaction.transaction_data.qr_code,
       qr_code_base64:
-        result.point_of_interaction.transaction_data.qr_code_base64,
+        response.body.point_of_interaction.transaction_data.qr_code_base64,
     });
   } catch (error) {
     console.log(error);
 
     res.status(500).json({
       error: error.message,
+      details: error.cause || null,
     });
   }
 }
