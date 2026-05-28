@@ -18,7 +18,8 @@ export default async function handler(req, res) {
     const response = await mercadopago.payment.create(payment_data);
 
     res.status(200).json({
-      qr_code: response.body.point_of_interaction.transaction_data.qr_code,
+      qr_code:
+        response.body.point_of_interaction.transaction_data.qr_code,
       qr_code_base64:
         response.body.point_of_interaction.transaction_data.qr_code_base64,
     });
